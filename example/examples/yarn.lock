@@ -5820,10 +5820,10 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-rongcloud-react-native-imlib-2@1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/rongcloud-react-native-imlib-2/-/rongcloud-react-native-imlib-2-1.0.2.tgz#535e278b46d4998753aac007a4892a5533b0e54c"
-  integrity sha512-z7dNYh+5twFROf/dQgDOgu8ts1Pu3ozP9JF/pTPLj6bsw4rtEh+1vRyjchEPNsJHfPDH2tEqmvfxiKqtKICTGg==
+rongcloud-react-native-imlib-2@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/rongcloud-react-native-imlib-2/-/rongcloud-react-native-imlib-2-1.0.4.tgz#2dcc2e86e7166613d23b48db15ee44c057826fb5"
+  integrity sha512-aIj1Gm0OzE0VpFdCT3hgR8CVpQy4LQjK+N7fCLC/TLi+o5TU5mmmV+jwCaMtqgWu9Ek+Wa/GfPRkHiNmwtQvyQ==
 
 rsvp@^4.8.4:
   version "4.8.5"

@@ -150,16 +150,16 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode error) {
+            public void onError(ConnectionErrorCode error) {
                 WritableMap map = createEventMap(eventId, "error");
                 map.putInt("errorCode", error.getValue());
-                map.putString("errorMessage", error.getMessage());
+                map.putString("errorMessage", error.name());
                 eventEmitter.emit("rcimlib-connect", map);
             }
 
             @Override
-            public void onTokenIncorrect() {
-                eventEmitter.emit("rcimlib-connect", createEventMap(eventId, "tokenIncorrect"));
+            public void onDatabaseOpened(DatabaseOpenStatus databaseOpenStatus) {
+
             }
         });
     }
