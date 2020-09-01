@@ -66,9 +66,8 @@ export declare function setStatisticServer(server: string): void;
  * @param token 从服务端获取的用户身份令牌（Token）
  * @param success 成功回调函数
  * @param error 失败回调函数
- * @param tokenIncorrect token 错误或过期回调函数
  */
-export declare function connect(token: string, success?: (userId: string) => void, error?: (errorCode: ConnectErrorCode) => void, tokenIncorrect?: () => void): void;
+export declare function connect(token: string, success?: (userId: string) => void, error?: (errorCode: ConnectErrorCode) => void): void;
 /**
  * 断开与融云服务器的连接
  *

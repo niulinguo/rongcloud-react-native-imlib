@@ -37,26 +37,39 @@ RCT_EXPORT_METHOD(getConnectionStatus
 }
 
 RCT_EXPORT_METHOD(connect : (NSString *)token : (NSString *)eventId) {
-  [RCIMClient.sharedRCIMClient connectWithToken:token
-      success:^(NSString *userId) {
+    [RCIMClient.sharedRCIMClient connectWithToken:token dbOpened:^(RCDBErrorCode code) {
+        
+    } success:^(NSString *userId) {
+         [self sendEventWithName:@"rcimlib-connect"
+                                   body:@{@"type" : @"success", @"eventId" : eventId, @"userId" : userId}];
+    } error:^(RCConnectErrorCode code) {
         [self sendEventWithName:@"rcimlib-connect"
-                           body:@{@"type" : @"success", @"eventId" : eventId, @"userId" : userId}];
-      }
-      error:^(RCConnectErrorCode code) {
-        [self sendEventWithName:@"rcimlib-connect"
-                           body:@{
-                             @"type" : @"error",
-                             @"eventId" : eventId,
-                             @"errorCode" : @(code)
-                           }];
-      }
-      tokenIncorrect:^{
-        [self sendEventWithName:@"rcimlib-connect"
-                           body:@{
-                             @"type" : @"tokenIncorrect",
-                             @"eventId" : eventId,
-                           }];
-      }];
+                                   body:@{
+                                     @"type" : @"error",
+                                     @"eventId" : eventId,
+                                     @"errorCode" : @(code)
+                                   }];
+    }];
+//  [RCIMClient.sharedRCIMClient connectWithToken:token
+//      success:^(NSString *userId) {
+//        [self sendEventWithName:@"rcimlib-connect"
+//                           body:@{@"type" : @"success", @"eventId" : eventId, @"userId" : userId}];
+//      }
+//      error:^(RCConnectErrorCode code) {
+//        [self sendEventWithName:@"rcimlib-connect"
+//                           body:@{
+//                             @"type" : @"error",
+//                             @"eventId" : eventId,
+//                             @"errorCode" : @(code)
+//                           }];
+//      }
+//      tokenIncorrect:^{
+//        [self sendEventWithName:@"rcimlib-connect"
+//                           body:@{
+//                             @"type" : @"tokenIncorrect",
+//                             @"eventId" : eventId,
+//                           }];
+//      }];
 }
 
 RCT_EXPORT_METHOD(disconnect : (BOOL)isReceivePush) {

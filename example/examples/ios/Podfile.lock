@@ -351,7 +351,7 @@ DEPENDENCIES:
   - React-RCTText (from `../node_modules/react-native/Libraries/Text`)
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - rongcloud-react-native-imlib-2 (from `../../..`)
+  - rongcloud-react-native-imlib-2 (from `../node_modules/rongcloud-react-native-imlib-2`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -422,7 +422,7 @@ EXTERNAL SOURCES:
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
   rongcloud-react-native-imlib-2:
-    :path: "../../.."
+    :path: "../node_modules/rongcloud-react-native-imlib-2"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
