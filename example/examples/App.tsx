@@ -1,118 +1,119 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {StatusBar, View} from 'react-native';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+  init,
+  addConnectionStatusListener,
+  connect,
+  disconnect,
+  ConnectErrorCode,
+  ConnectionStatus,
+  ConnectionStatusIOS,
+} from 'rongcloud-react-native-imlib-2';
+import RongIMConfig from './rongim_config';
+import Button from './Button';
+import Card from './Card';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+init(RongIMConfig.appKey);
 
-declare const global: {HermesInternal: null | {}};
+let connectStatusListener: ((status: ConnectionStatus) => void) | undefined;
+
+addConnectionStatusListener((status) => {
+  console.log(`connect status ${status}`);
+  if (connectStatusListener !== undefined) {
+    connectStatusListener(status);
+  }
+});
+
+function getConnectResultMessage(result: ConnectErrorCode | string): string {
+  if (typeof result === 'string') {
+    return `连接成功\n${result}`;
+  }
+  let text: string = '';
+  switch (result) {
+    case ConnectErrorCode.RC_CONNECTION_EXIST: {
+      text = '连接已存在';
+      break;
+    }
+  }
+  return `连接结果\n${text}`;
+}
+
+function getConnectStatusText(status: ConnectionStatus): string {
+  let text: string = '';
+  switch (status) {
+    case ConnectionStatusIOS.Connected: {
+      text = '已连接';
+      break;
+    }
+    case ConnectionStatusIOS.Connecting: {
+      text = '连接中...';
+      break;
+    }
+    case ConnectionStatusIOS.SignUp: {
+      text = '已注销';
+      break;
+    }
+    default: {
+      text = status.toString();
+    }
+  }
+  return `连接状态\n${text}`;
+}
 
 const App = () => {
+  const [connectStatus, setConnectStatus] = useState<ConnectionStatus>();
+  const [connectResult, setConnectResult] = useState<
+    ConnectErrorCode | string
+  >();
+
+  useEffect(() => {
+    connectStatusListener = (status) => {
+      setConnectStatus(status);
+    };
+    return () => {
+      connectStatusListener = undefined;
+    };
+  }, []);
+
+  function rongIMConnect() {
+    connect(
+      RongIMConfig.token,
+      (uid) => {
+        console.log(`connect success ${uid}`);
+        setConnectResult(uid);
+      },
+      (error) => {
+        console.log(`connect error ${error}`);
+        setConnectResult(error);
+      },
+    );
+  }
+
+  function rongIMDisconnect() {
+    disconnect(true);
+  }
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change
-                this screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+      <View
+        style={{
+          flexWrap: 'wrap',
+          flexDirection: 'row',
+          padding: 16,
+          paddingTop: 60,
+        }}>
+        {connectStatus !== undefined ? (
+          <Card title={getConnectStatusText(connectStatus)} />
+        ) : undefined}
+        <Button title={'连接'} onPress={rongIMConnect} />
+        {connectResult !== undefined ? (
+          <Card title={getConnectResultMessage(connectResult)} />
+        ) : undefined}
+        <Button title={'断开连接'} onPress={rongIMDisconnect} />
+      </View>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;

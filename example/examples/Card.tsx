@@ -1,30 +1,31 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, View} from 'react-native';
 
 type IProps = {
   title: string;
-  onPress: () => void;
 };
 
 export default function (props: IProps) {
-  const {title, onPress} = props;
+  const {title} = props;
 
   return (
-    <TouchableOpacity
+    <View
       style={{
         borderWidth: 1,
         padding: 16,
-        margin: 8,
         borderRadius: 8,
-        justifyContent: 'center',
-      }}
-      onPress={onPress}>
+        margin: 8,
+        borderColor: 'gray',
+      }}>
       <Text
         style={{
-          fontSize: 18,
+          fontSize: 14,
+          lineHeight: 18,
+          textAlign: 'center',
+          color: 'gray',
         }}>
         {title}
       </Text>
-    </TouchableOpacity>
+    </View>
   );
 }
