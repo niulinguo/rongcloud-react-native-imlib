@@ -1,0 +1,51 @@
+{
+  "name": "rongcloud-react-native-imlib-2",
+  "description": "React Native RongCloud IMLib",
+  "version": "1.0.1",
+  "license": "MIT",
+  "main": "lib/js",
+  "author": {
+    "name": "lingoniu",
+    "email": "niulinguo@163.com"
+  },
+  "homepage": "https://www.rongcloud.cn",
+  "files": [
+    "lib/js",
+    "lib/ios",
+    "lib/android/src",
+    "lib/android/libs",
+    "lib/android/build.gradle",
+    "react-native.config.js",
+    "rongcloud-react-native-imlib-2.podspec"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rongcloud/rongcloud-react-native-imlib"
+  },
+  "scripts": {
+    "dev": "tsc -w",
+    "build": "tsc",
+    "build-docs": "typedoc --out docs/api --excludeNotExported --module commonjs --mode file src",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "reload": "adb reverse tcp:8081 tcp:8081; adb shell input text rr",
+    "run-android": "node node_modules/react-native/local-cli/cli.js run-android",
+    "release-android": "node node_modules/react-native/local-cli/cli.js run-android --variant=release",
+    "log-android": "node node_modules/react-native/local-cli/cli.js log-android",
+    "run-ios": "node node_modules/react-native/local-cli/cli.js run-ios"
+  },
+  "devDependencies": {
+    "@types/react-navigation": "^3.0.5",
+    "react": "16.9.0",
+    "react-native": "0.61.5",
+    "react-native-audio-recorder-player": "^2.4.3",
+    "react-native-document-picker": "^3.2.4",
+    "react-native-gesture-handler": "^1.1.0",
+    "react-native-image-picker": "^1.1.0",
+    "react-native-screens": "^2.0.0-beta.13",
+    "react-navigation": "^4.0.10",
+    "react-navigation-stack": "^1.10.2"
+  },
+  "prettier": {
+    "printWidth": 100
+  }
+}
