@@ -513,7 +513,11 @@ export declare enum ConnectionStatusAndroid {
     DISCONNECTED = 2,
     KICKED_OFFLINE_BY_OTHER_CLIENT = 3,
     TOKEN_INCORRECT = 4,
-    SERVER_INVALID = 5
+    SERVER_INVALID = 5,
+    USER_BLOCKED = 6,
+    SIGN_OUT = 12,
+    SUSPEND = 13,
+    TIMEOUT = 14,
 }
 /**
  * 连接状态
