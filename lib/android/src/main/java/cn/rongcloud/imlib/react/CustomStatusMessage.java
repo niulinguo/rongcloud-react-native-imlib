@@ -10,6 +10,16 @@ public class CustomStatusMessage extends TextMessage {
 
     private static final String TAG = "CustomStatusMessage";
 
+    public static final Creator<CustomStatusMessage> CREATOR = new Creator<CustomStatusMessage>() {
+        public CustomStatusMessage createFromParcel(Parcel source) {
+            return new CustomStatusMessage(source);
+        }
+
+        public CustomStatusMessage[] newArray(int size) {
+            return new CustomStatusMessage[size];
+        }
+    };
+
     public static CustomStatusMessage obtain(String text) {
         CustomStatusMessage message = new CustomStatusMessage();
         message.setContent(text);
