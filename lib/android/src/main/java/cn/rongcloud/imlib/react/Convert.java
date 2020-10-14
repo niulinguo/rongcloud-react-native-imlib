@@ -76,6 +76,11 @@ class Convert {
         WritableMap map = Arguments.createMap();
         map.putString("objectName", objectName);
         switch (objectName) {
+            case "Custom:Status":
+                CustomStatusMessage customStatus = (CustomStatusMessage) content;
+                map.putString("content", customStatus.getContent());
+                map.putString("extra", customStatus.getExtra());
+                break;
             case "RC:TxtMsg":
                 TextMessage text = (TextMessage) content;
                 map.putString("content", text.getContent());
@@ -427,6 +432,12 @@ class Convert {
         MessageContent messageContent = null;
         if (objectName != null) {
             switch (objectName) {
+                case "Custom:Status":
+                    messageContent = CustomStatusMessage.obtain(map.getString("content"));
+                    if (map.hasKey("extra")) {
+                        ((TextMessage) messageContent).setExtra(map.getString("extra"));
+                    }
+                    break;
                 case "RC:TxtMsg":
                     messageContent = TextMessage.obtain(map.getString("content"));
                     if (map.hasKey("extra")) {

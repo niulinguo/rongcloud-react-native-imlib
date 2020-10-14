@@ -32,6 +32,8 @@ import static cn.rongcloud.imlib.react.Utils.*;
 
 @SuppressWarnings("unused")
 public class RCIMClientModule extends ReactContextBaseJavaModule {
+    private static final String TAG = "RCIMClientModule";
+
     private RCTDeviceEventEmitter eventEmitter;
     private ReactApplicationContext reactContext;
 
@@ -137,6 +139,14 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
         eventEmitter = reactContext.getJSModule(RCTDeviceEventEmitter.class);
         RCPushReceiver.eventEmitter = eventEmitter;
         RongIMClient.init(reactContext, key);
+
+        ArrayList<Class<? extends MessageContent>> customMessageTypeList = new ArrayList<>();
+        customMessageTypeList.add(CustomStatusMessage.class);
+        try {
+            RongIMClient.registerMessageType(customMessageTypeList);
+        } catch (AnnotationNotFoundException e) {
+            RLog.e(TAG, "AnnotationNotFoundException " + e.getMessage());
+        }
     }
 
     @ReactMethod

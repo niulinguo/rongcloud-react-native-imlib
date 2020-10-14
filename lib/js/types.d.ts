@@ -73,6 +73,11 @@ export interface MessageContent {
  */
 export declare enum ObjectName {
     /**
+     * 自定义消息：状态消息
+     * 不存储、不计数
+     */
+    CustomStatus = "Custom:Status",
+    /**
      * 文本消息
      */
     Text = "RC:TxtMsg",
@@ -162,6 +167,16 @@ export declare enum MessageObjectNames {
     file = "RC:FileMsg",
     location = "RC:LocMsg",
     voice = "RC:VcMsg"
+}
+
+/**
+ * 自定义状态消息
+ * 不存储、不计数
+ */
+export interface CustomStatusMessage extends MessageContent {
+    objectName: ObjectName.CustomStatus;
+    content: string;
+    extra?: string;
 }
 /**
  * 文本消息
