@@ -1,5 +1,6 @@
 #import "RCIMClib.h"
 #import <React/RCTConvert.h>
+#import "CustomStatusMessage.h"
 
 @implementation RCIMClib {
 }
@@ -8,6 +9,7 @@ RCT_EXPORT_MODULE(RCIMClient)
 
 RCT_EXPORT_METHOD(init : (NSString *)key) {
   [RCIMClient.sharedRCIMClient initWithAppKey:key];
+  [RCIMClient.sharedRCIMClient registerMessageType:[CustomStatusMessage class]];
   [RCIMClient.sharedRCIMClient setRCConnectionStatusChangeDelegate:self];
   [RCIMClient.sharedRCIMClient setReceiveMessageDelegate:self object:nil];
   [RCIMClient.sharedRCIMClient setRCLogInfoDelegate:self];
@@ -38,7 +40,7 @@ RCT_EXPORT_METHOD(getConnectionStatus
 
 RCT_EXPORT_METHOD(connect : (NSString *)token : (NSString *)eventId) {
     [RCIMClient.sharedRCIMClient connectWithToken:token dbOpened:^(RCDBErrorCode code) {
-        
+
     } success:^(NSString *userId) {
          [self sendEventWithName:@"rcimlib-connect"
                                    body:@{@"type" : @"success", @"eventId" : eventId, @"userId" : userId}];
@@ -1650,6 +1652,13 @@ RCT_EXPORT_METHOD(getCurrentUserId
       @"isFull" : @(image.isFull),
       @"extra" : image.extra ? image.extra : @""
     };
+  } else if ([content isKindOfClass:[CustomStatusMessage class]]) {
+    CustomStatusMessage *text = (CustomStatusMessage *)content;
+    return @{
+      @"objectName" : @"Custom:Status",
+      @"content" : text.content,
+      @"extra" : text.extra ? text.extra : @""
+    };
   } else if ([content isKindOfClass:[RCTextMessage class]]) {
     RCTextMessage *text = (RCTextMessage *)content;
     return @{
@@ -1779,6 +1788,10 @@ RCT_EXPORT_METHOD(getCurrentUserId
 
   if ([objectName isEqualToString:@"RC:TxtMsg"]) {
     RCTextMessage *text = [RCTextMessage messageWithContent:content[@"content"]];
+    text.extra = content[@"extra"];
+    messageContent = text;
+  } else if ([objectName isEqualToString:@"Custom:Status"]) {
+    CustomStatusMessage *text = [CustomStatusMessage messageWithContent:content[@"content"]];
     text.extra = content[@"extra"];
     messageContent = text;
   } else if ([objectName isEqualToString:@"RC:ImgMsg"]) {
