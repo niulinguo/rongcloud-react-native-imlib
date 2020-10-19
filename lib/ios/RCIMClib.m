@@ -1,6 +1,7 @@
 #import "RCIMClib.h"
 #import <React/RCTConvert.h>
 #import "CustomStatusMessage.h"
+#import "CustomNotificationMessage.h"
 
 @implementation RCIMClib {
 }
@@ -10,6 +11,7 @@ RCT_EXPORT_MODULE(RCIMClient)
 RCT_EXPORT_METHOD(init : (NSString *)key) {
   [RCIMClient.sharedRCIMClient initWithAppKey:key];
   [RCIMClient.sharedRCIMClient registerMessageType:[CustomStatusMessage class]];
+  [RCIMClient.sharedRCIMClient registerMessageType:[CustomNotificationMessage class]];
   [RCIMClient.sharedRCIMClient setRCConnectionStatusChangeDelegate:self];
   [RCIMClient.sharedRCIMClient setReceiveMessageDelegate:self object:nil];
   [RCIMClient.sharedRCIMClient setRCLogInfoDelegate:self];
@@ -1659,6 +1661,13 @@ RCT_EXPORT_METHOD(getCurrentUserId
       @"content" : text.content,
       @"extra" : text.extra ? text.extra : @""
     };
+  } else if ([content isKindOfClass:[CustomNotificationMessage class]]) {
+      CustomNotificationMessage *text = (CustomNotificationMessage *)content;
+      return @{
+        @"objectName" : @"Custom:Notification",
+        @"content" : text.content,
+        @"extra" : text.extra ? text.extra : @""
+      };
   } else if ([content isKindOfClass:[RCTextMessage class]]) {
     RCTextMessage *text = (RCTextMessage *)content;
     return @{
@@ -1794,6 +1803,10 @@ RCT_EXPORT_METHOD(getCurrentUserId
     CustomStatusMessage *text = [CustomStatusMessage messageWithContent:content[@"content"]];
     text.extra = content[@"extra"];
     messageContent = text;
+  } else if ([objectName isEqualToString:@"Custom:Notification"]) {
+      CustomNotificationMessage *text = [CustomNotificationMessage messageWithContent:content[@"content"]];
+      text.extra = content[@"extra"];
+      messageContent = text;
   } else if ([objectName isEqualToString:@"RC:ImgMsg"]) {
     NSString *local = content[@"local"];
     RCImageMessage *image = [RCImageMessage

@@ -144,6 +144,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
 
         ArrayList<Class<? extends MessageContent>> customMessageTypeList = new ArrayList<>();
         customMessageTypeList.add(CustomStatusMessage.class);
+        customMessageTypeList.add(CustomNotificationMessage.class);
         try {
             RongIMClient.registerMessageType(customMessageTypeList);
         } catch (AnnotationNotFoundException e) {

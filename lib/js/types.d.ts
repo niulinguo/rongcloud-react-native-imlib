@@ -78,6 +78,11 @@ export declare enum ObjectName {
      */
     CustomStatus = "Custom:Status",
     /**
+     * 自定义消息：通知消息
+     * 不存储、不计数
+     */
+    CustomNotification = "Custom:Notification",
+    /**
      * 文本消息
      */
     Text = "RC:TxtMsg",
@@ -175,6 +180,15 @@ export declare enum MessageObjectNames {
  */
 export interface CustomStatusMessage extends MessageContent {
     objectName: ObjectName.CustomStatus;
+    content: string;
+    extra?: string;
+}
+/**
+ * 自定义通知消息
+ * 不存储、不计数
+ */
+export interface CustomNotificationMessage extends MessageContent {
+    objectName: ObjectName.CustomNotification;
     content: string;
     extra?: string;
 }

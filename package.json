@@ -1,7 +1,7 @@
 {
   "name": "rongcloud-react-native-imlib-2",
   "description": "React Native RongCloud IMLib",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "license": "MIT",
   "main": "lib/js",
   "author": {

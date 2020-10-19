@@ -10,6 +10,8 @@
 		39850E58222BC2F900485C14 /* RCIMClib.h in Headers */ = {isa = PBXBuildFile; fileRef = 39ED574F1F3CAC2200B440CD /* RCIMClib.h */; };
 		6C6673AB253706C100D1CAC5 /* CustomStatusMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6673A9253706C100D1CAC5 /* CustomStatusMessage.h */; };
 		6C6673AC253706C100D1CAC5 /* CustomStatusMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C6673AA253706C100D1CAC5 /* CustomStatusMessage.m */; };
+		6CC0D774253D84D20075BF3B /* CustomNotificationMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6CC0D773253D84D20075BF3B /* CustomNotificationMessage.h */; };
+		6CC0D777253D852B0075BF3B /* CustomNotificationMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC0D776253D852B0075BF3B /* CustomNotificationMessage.m */; };
 		B3E7B58A1CC2AC0600A0062D /* RCIMClib.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* RCIMClib.m */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,8 @@
 		39ED574F1F3CAC2200B440CD /* RCIMClib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCIMClib.h; sourceTree = "<group>"; };
 		6C6673A9253706C100D1CAC5 /* CustomStatusMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomStatusMessage.h; sourceTree = "<group>"; };
 		6C6673AA253706C100D1CAC5 /* CustomStatusMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomStatusMessage.m; sourceTree = "<group>"; };
+		6CC0D773253D84D20075BF3B /* CustomNotificationMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomNotificationMessage.h; sourceTree = "<group>"; };
+		6CC0D776253D852B0075BF3B /* CustomNotificationMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomNotificationMessage.m; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* RCIMClib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCIMClib.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,6 +66,8 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
+				6CC0D776253D852B0075BF3B /* CustomNotificationMessage.m */,
+				6CC0D773253D84D20075BF3B /* CustomNotificationMessage.h */,
 				39ED574F1F3CAC2200B440CD /* RCIMClib.h */,
 				B3E7B5891CC2AC0600A0062D /* RCIMClib.m */,
 				6C6673A9253706C100D1CAC5 /* CustomStatusMessage.h */,
@@ -80,6 +86,7 @@
 			files = (
 				39850E58222BC2F900485C14 /* RCIMClib.h in Headers */,
 				6C6673AB253706C100D1CAC5 /* CustomStatusMessage.h in Headers */,
+				6CC0D774253D84D20075BF3B /* CustomNotificationMessage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +150,7 @@
 			files = (
 				6C6673AC253706C100D1CAC5 /* CustomStatusMessage.m in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RCIMClib.m in Sources */,
+				6CC0D777253D852B0075BF3B /* CustomNotificationMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

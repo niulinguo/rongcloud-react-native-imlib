@@ -81,6 +81,11 @@ class Convert {
                 map.putString("content", customStatus.getContent());
                 map.putString("extra", customStatus.getExtra());
                 break;
+            case "Custom:Notification":
+                CustomNotificationMessage customNotification = (CustomNotificationMessage) content;
+                map.putString("content", customNotification.getContent());
+                map.putString("extra", customNotification.getExtra());
+                break;
             case "RC:TxtMsg":
                 TextMessage text = (TextMessage) content;
                 map.putString("content", text.getContent());
@@ -435,7 +440,13 @@ class Convert {
                 case "Custom:Status":
                     messageContent = CustomStatusMessage.obtain(map.getString("content"));
                     if (map.hasKey("extra")) {
-                        ((TextMessage) messageContent).setExtra(map.getString("extra"));
+                        ((CustomStatusMessage) messageContent).setExtra(map.getString("extra"));
+                    }
+                    break;
+                case "Custom:Notification":
+                    messageContent = CustomNotificationMessage.obtain(map.getString("content"));
+                    if (map.hasKey("extra")) {
+                        ((CustomNotificationMessage) messageContent).setExtra(map.getString("extra"));
                     }
                     break;
                 case "RC:TxtMsg":
